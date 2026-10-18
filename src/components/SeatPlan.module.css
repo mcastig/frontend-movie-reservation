@@ -1,0 +1,165 @@
+.hall {
+  --gap: 0.375rem;
+  --seat: clamp(1.75rem, calc((100vw - 2 * var(--gutter) - 3.5rem) / var(--cols) - var(--gap)), 2.75rem);
+  display: grid;
+  justify-items: center;
+  gap: var(--space-6);
+}
+
+/* The screen: a glowing arc that brightens as the lights go down */
+.screen {
+  position: relative;
+  width: min(100%, calc(var(--cols) * (var(--seat) + var(--gap)) + 2rem));
+  text-align: center;
+}
+
+.arc {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  opacity: 0.25;
+  animation: brighten var(--lights-duration) ease-out 150ms forwards;
+}
+
+.arcLine {
+  fill: none;
+  stroke: var(--screen-glow);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.arcGlow {
+  fill: var(--screen-glow);
+  opacity: 0.12;
+}
+
+.screenLabel {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--step--1);
+  color: var(--text-quiet);
+}
+
+@keyframes brighten {
+  to {
+    opacity: 1;
+  }
+}
+
+.rows {
+  display: grid;
+  gap: calc(var(--gap) * 2);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1.5rem repeat(var(--cols), var(--seat)) 1.5rem;
+  align-items: center;
+  gap: var(--gap);
+}
+
+.rowLabel {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 700;
+  color: var(--text-quiet);
+  text-align: center;
+}
+
+/* Rows curve slightly, like the hall: seats at the ends sit closer to the screen. */
+.seat {
+  display: grid;
+  place-items: center;
+  width: var(--seat);
+  height: var(--seat);
+  padding: 0;
+  border: 2px solid var(--screen-glow);
+  border-radius: 50%;
+  background: var(--screen-glow);
+  color: var(--house-navy);
+  font-size: var(--step--1);
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transform: translateY(var(--lift, 0));
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease;
+}
+
+.seat:not(:disabled):hover {
+  border-color: var(--seat-rose);
+}
+
+.seat:focus-visible {
+  outline: 3px solid var(--screen-glow);
+  outline-offset: 3px;
+}
+
+.seat[aria-pressed='true'] {
+  background: var(--seat-rose);
+  border-color: var(--seat-rose);
+  color: var(--house-navy);
+}
+
+/* Taken: outlined, marked ✕, not just a different color */
+.seat:disabled {
+  background: transparent;
+  border-color: var(--velvet-slate);
+  color: var(--velvet-slate);
+  font-size: var(--step-0);
+  cursor: not-allowed;
+}
+
+.seat[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2) var(--space-5);
+  padding: 0;
+  list-style: none;
+  font-size: var(--step--1);
+  color: var(--text-quiet);
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.key {
+  display: inline-grid;
+  place-items: center;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--screen-glow);
+  border-radius: 50%;
+  background: var(--screen-glow);
+  font-size: 0.625rem;
+  line-height: 1;
+}
+
+.keyPicked {
+  background: var(--seat-rose);
+  border-color: var(--seat-rose);
+}
+
+.keyTaken {
+  background: transparent;
+  border-color: var(--velvet-slate);
+  color: var(--velvet-slate);
+}
+
+@media (min-width: 48rem) {
+  .hall {
+    --gap: 0.5rem;
+    --seat: clamp(2rem, calc((100vw - 2 * var(--gutter) - 4rem) / var(--cols) - var(--gap)), 3.5rem);
+  }
+}

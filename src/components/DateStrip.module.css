@@ -1,0 +1,33 @@
+.strip {
+  display: flex;
+  gap: var(--space-1);
+  margin-inline: calc(-1 * var(--gutter));
+  padding: 0 var(--gutter) var(--space-1);
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-padding-inline: var(--gutter);
+  list-style: none;
+}
+
+.strip::-webkit-scrollbar {
+  display: none;
+}
+
+.day {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--text-quiet);
+}
+
+.day:hover {
+  color: var(--text);
+}
+
+.day[aria-current='date'] {
+  color: var(--text);
+  font-weight: 700;
+  border-bottom-color: var(--fill);
+}

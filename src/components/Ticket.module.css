@@ -1,0 +1,93 @@
+/* A booking as a ticket: seat rose, navy text, a perforated tear line with
+   notches between the main part and the stub. */
+.ticket {
+  --side: 7.5rem;
+  --notch: 0.5rem;
+  --cut: calc(100% - var(--side));
+  display: grid;
+  grid-template-columns: 1fr var(--side);
+  border-radius: var(--radius);
+  background: var(--seat-rose);
+  color: var(--house-navy);
+  mask:
+    radial-gradient(circle var(--notch) at var(--cut) 0, transparent 98%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle var(--notch) at var(--cut) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+}
+
+.dim {
+  background: color-mix(in srgb, var(--seat-rose) 30%, var(--screen-silver));
+}
+
+.main {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--step-4);
+  overflow-wrap: break-word;
+}
+
+.when {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+}
+
+.hall {
+  font-size: var(--step--1);
+}
+
+.status {
+  justify-self: start;
+  padding: 0 var(--space-2);
+  border: 1px solid currentColor;
+  border-radius: var(--radius);
+  font-size: var(--step--1);
+  font-weight: 700;
+}
+
+.side {
+  display: grid;
+  align-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-left: 2px dashed color-mix(in srgb, var(--house-navy) 45%, transparent);
+}
+
+.seats {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.label {
+  display: block;
+  font-size: var(--step--1);
+}
+
+.total {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+@media (min-width: 40rem) {
+  .ticket {
+    --side: 10rem;
+  }
+
+  .main,
+  .side {
+    padding: var(--space-5);
+  }
+}

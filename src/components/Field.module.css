@@ -1,0 +1,43 @@
+.field {
+  display: grid;
+  gap: var(--space-1);
+  max-width: 32rem;
+}
+
+.label {
+  font-weight: 700;
+}
+
+.hint {
+  font-size: var(--step--1);
+  color: var(--text-quiet);
+}
+
+.error {
+  font-size: var(--step--1);
+  font-weight: 700;
+  color: var(--error);
+}
+
+.control {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-3);
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.control:hover {
+  border-color: var(--fill);
+}
+
+.control[aria-invalid='true'] {
+  border-color: var(--error);
+}
+
+textarea.control {
+  min-height: 8rem;
+  resize: vertical;
+}

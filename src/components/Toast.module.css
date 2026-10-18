@@ -1,0 +1,44 @@
+.region {
+  position: fixed;
+  inset: var(--space-3) var(--gutter) auto;
+  z-index: 20;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  max-width: 36rem;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius);
+  background: var(--fill);
+  color: var(--on-fill);
+  pointer-events: auto;
+}
+
+.error {
+  background: var(--error);
+  color: var(--bg);
+}
+
+.close {
+  flex: none;
+  margin: calc(-1 * var(--space-1)) calc(-1 * var(--space-2)) 0 0;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  color: inherit;
+  font-size: var(--step-1);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.close:focus-visible {
+  outline-color: currentColor;
+}

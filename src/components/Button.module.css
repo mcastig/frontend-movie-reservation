@@ -1,0 +1,72 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-4);
+  border: 2px solid var(--fill);
+  border-radius: var(--radius);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.button:disabled,
+.button[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.primary {
+  background: var(--fill);
+  color: var(--on-fill);
+}
+
+.primary:not(:disabled):hover {
+  background: transparent;
+  color: var(--text);
+}
+
+.quiet {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--line);
+}
+
+.quiet:not(:disabled):hover {
+  border-color: var(--fill);
+}
+
+.danger {
+  background: transparent;
+  color: var(--error);
+  border-color: var(--error);
+}
+
+/* The one action while picking seats: navy on seat rose, never white on rose */
+.book {
+  background: var(--seat-rose);
+  border-color: var(--seat-rose);
+  color: var(--house-navy);
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  min-height: 3.25rem;
+  padding-inline: var(--space-5);
+}
+
+.book:not(:disabled):hover {
+  background: var(--screen-glow);
+  border-color: var(--screen-glow);
+}
+
+.small {
+  min-height: 2.25rem;
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--step--1);
+}

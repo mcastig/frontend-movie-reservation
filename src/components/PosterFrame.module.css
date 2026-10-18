@@ -1,0 +1,37 @@
+.frame {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--house-navy);
+  container-type: inline-size;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* No poster: the title set in Big Shoulders on house navy, like a marquee card. */
+.missing {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 8%;
+  color: var(--screen-glow);
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+  /* Sized to the frame, so short words never break */
+  font-size: var(--poster-title-size, 17cqi);
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.large {
+  --poster-title-size: 15cqi;
+}
