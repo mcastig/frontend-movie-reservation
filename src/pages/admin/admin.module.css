@@ -1,0 +1,238 @@
+/* The back office is a tool: Atkinson only, dense tables, left-aligned forms. */
+
+.shell {
+  padding-inline: var(--gutter);
+  padding-bottom: var(--space-8);
+}
+
+.tabs {
+  display: flex;
+  gap: var(--space-1);
+  margin-inline: calc(-1 * var(--gutter));
+  padding-inline: var(--gutter);
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line-soft);
+  list-style: none;
+}
+
+.tab {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 3px solid transparent;
+  color: var(--text-quiet);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.tab[aria-current='page'] {
+  color: var(--text);
+  font-weight: 700;
+  border-bottom-color: var(--fill);
+}
+
+.section {
+  display: grid;
+  gap: var(--space-5);
+  padding-top: var(--space-5);
+}
+
+.titleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.title {
+  font-size: var(--step-2);
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: var(--step-1);
+  font-weight: 700;
+}
+
+.note {
+  max-width: var(--measure);
+  color: var(--text-quiet);
+  font-size: var(--step--1);
+}
+
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--step--1);
+}
+
+.table th,
+.table td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--line-soft);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.table tfoot td {
+  border-top: 2px solid var(--line);
+  border-bottom: 0;
+  font-weight: 700;
+}
+
+.num {
+  text-align: right !important;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.form {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 36rem;
+}
+
+.inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+.inline > * {
+  flex: 1 1 10rem;
+}
+
+.inline > button {
+  flex: none;
+}
+
+.checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.checks legend {
+  margin-bottom: var(--space-2);
+  padding: 0;
+  font-weight: 700;
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2rem;
+}
+
+.check input {
+  width: 1.125rem;
+  height: 1.125rem;
+  accent-color: var(--house-navy);
+}
+
+.error {
+  color: var(--error);
+  font-weight: 700;
+}
+
+.bar {
+  position: relative;
+  width: 8rem;
+  height: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.barFill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--fill);
+}
+
+.occupancy {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+
+.totals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-6);
+}
+
+.totals dt {
+  font-size: var(--step--1);
+  color: var(--text-quiet);
+}
+
+.totals dd {
+  font-size: var(--step-2);
+  font-weight: 700;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.week {
+  min-width: 36rem;
+}
+
+.slot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--space-2);
+  padding-block: var(--space-1);
+}
+
+.slot + .slot {
+  border-top: 1px dashed var(--line-soft);
+}
+
+.linkButton {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: inherit;
+}
+
+.linkButton.danger {
+  color: var(--error);
+}
