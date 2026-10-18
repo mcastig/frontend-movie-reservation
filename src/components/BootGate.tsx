@@ -10,10 +10,7 @@ export function BootGate({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<Status>('checking')
 
   useEffect(() => {
-    let done = false
-    const timer = setTimeout(() => {
-      if (!done) setStatus('waking')
-    }, config.wakeUpNoticeMs)
+    const timer = setTimeout(() => setStatus('waking'), config.wakeUpNoticeMs)
 
     const check = async (): Promise<void> => {
       try {
@@ -27,7 +24,6 @@ export function BootGate({ children }: { children: ReactNode }) {
     }
 
     check().then(() => {
-      done = true
       clearTimeout(timer)
       setStatus('ready')
     })
