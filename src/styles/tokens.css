@@ -1,0 +1,74 @@
+/* Design tokens from SPECS.md → Design direction. Every color and font in the
+   app comes from here. Two lighting states: lights up (lobby) and lights down
+   (choosing seats). */
+
+:root {
+  /* Palette */
+  --screen-silver: #e8ecef;
+  --house-navy: #1a2042;
+  --seat-rose: #e9a3ae;
+  --usher-grey: #5b6380;
+  --velvet-slate: #8b93ae;
+  --screen-glow: #f6f7fb;
+  --alarm-red: #b3261e;
+  --alarm-red-dark: #f28b82;
+
+  /* Type */
+  --font-display: 'Big Shoulders Display', 'Arial Narrow', 'Roboto Condensed', sans-serif;
+  --font-body: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+
+  /* Scale: 1.25 ratio, 13 / 16 / 20 / 25 / 31 / 39 / 49 px */
+  --step--1: 0.8125rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.5625rem;
+  --step-3: 1.9375rem;
+  --step-4: 2.4375rem;
+  --step-5: 3.0625rem;
+
+  /* Spacing: 4 px base */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* Radii: seats are circles, stubs and controls 2 px */
+  --radius: 2px;
+
+  --gutter: var(--space-4);
+  --measure: 70ch;
+  --page-width: 46rem;
+  --lights-duration: 600ms;
+  --stub-duration: 150ms;
+}
+
+/* Lights up: the lobby */
+:root,
+[data-lights='up'] {
+  --bg: var(--screen-silver);
+  --text: var(--house-navy);
+  --text-quiet: var(--usher-grey);
+  --line: var(--usher-grey);
+  --line-soft: color-mix(in srgb, var(--usher-grey) 35%, var(--screen-silver));
+  --error: var(--alarm-red);
+  --focus: var(--house-navy);
+  --fill: var(--house-navy);
+  --on-fill: var(--screen-silver);
+}
+
+/* Lights down: the auditorium */
+[data-lights='down'] {
+  --bg: var(--house-navy);
+  --text: var(--screen-glow);
+  --text-quiet: var(--velvet-slate);
+  --line: var(--velvet-slate);
+  --line-soft: color-mix(in srgb, var(--velvet-slate) 35%, var(--house-navy));
+  --error: var(--alarm-red-dark);
+  --focus: var(--screen-glow);
+  --fill: var(--screen-glow);
+  --on-fill: var(--house-navy);
+}
