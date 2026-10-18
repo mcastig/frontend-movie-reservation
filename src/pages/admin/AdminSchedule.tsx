@@ -34,8 +34,12 @@ export function AdminSchedulePage() {
   results.forEach((r) => r.data?.movies.forEach((m) => m.showtimes.forEach((s) => halls.set(s.hall.id, s.hall))))
   const hallList = [...halls.values()].sort((a, b) => a.id - b.id)
 
+  // The grid only renders once the week has loaded; the fallback is defensive.
+  /* v8 ignore start */
+  const moviesOn = (date: string) => byDate.get(date)?.data?.movies ?? []
+  /* v8 ignore stop */
   const slots = (date: string, hallId: number): Slot[] =>
-    (byDate.get(date)?.data?.movies ?? [])
+    moviesOn(date)
       .flatMap((m) => m.showtimes.map((s) => ({ ...s, movieTitle: m.title })))
       .filter((s) => s.hall.id === hallId)
       .sort((a, b) => a.startsAt.localeCompare(b.startsAt))
