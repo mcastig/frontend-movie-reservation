@@ -4,11 +4,18 @@ import { seat, signIn, signUp } from './helpers.ts'
 // These tests book and cancel seats: run them only against the local, seeded API.
 test.describe.configure({ mode: 'serial' })
 
-test('a session survives a reload, and sign-out works', async ({ page }) => {
+test('a session survives a reload, and sign-out asks first', async ({ page }) => {
   await signUp(page)
   await page.reload()
   await expect(page.getByRole('link', { name: 'My bookings' })).toBeVisible()
   await page.getByRole('button', { name: 'Sign out' }).click()
+  const dialog = page.getByRole('dialog', { name: 'Sign out?' })
+  await dialog.getByRole('button', { name: 'Stay signed in' }).click()
+  await expect(dialog).toBeHidden()
+  await expect(page.getByRole('link', { name: 'My bookings' })).toBeVisible()
+
+  await page.getByRole('button', { name: 'Sign out' }).click()
+  await dialog.getByRole('button', { name: 'Sign out' }).click()
   await expect(page.getByRole('link', { name: 'Sign in' })).toBeVisible()
   await page.reload()
   await expect(page.getByRole('link', { name: 'Sign in' })).toBeVisible()

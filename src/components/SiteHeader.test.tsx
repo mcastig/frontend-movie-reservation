@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react'
+import { screen, within } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { admin, guest } from '../test/fixtures'
 import { fakeAuth, locationOf, renderPage, signedInAs, stateOf } from '../test/render'
@@ -23,13 +23,31 @@ describe('SiteHeader', () => {
     expect(stateOf(view)).toMatchObject({ from: { pathname: '/movies/3' } })
   })
 
-  it('shows bookings and sign-out when signed in', async () => {
-    const auth = signedInAs(guest)
-    const view = renderPage(<SiteHeader />, { auth })
+  it('shows bookings and sign-out when signed in', () => {
+    renderPage(<SiteHeader />, { auth: signedInAs(guest) })
     expect(screen.getByRole('link', { name: 'My bookings' })).toHaveAttribute('href', '/bookings')
     expect(screen.queryByRole('link', { name: 'Back office' })).toBeNull()
+    expect(screen.getByRole('button', { name: 'Sign out' })).toBeInTheDocument()
+  })
+
+  it('asks before signing out', async () => {
+    const auth = signedInAs(guest)
+    const view = renderPage(<SiteHeader />, { auth })
+    expect(screen.queryByRole('dialog')).toBeNull()
+
     await view.user.click(screen.getByRole('button', { name: 'Sign out' }))
-    expect(auth.signOut).toHaveBeenCalled()
+    const dialog = screen.getByRole('dialog', { name: 'Sign out?' })
+    expect(dialog).toHaveAccessibleDescription('You’ll need to sign in again to book seats or see your bookings.')
+    expect(within(dialog).getByRole('button', { name: 'Stay signed in' })).toHaveFocus()
+
+    await view.user.click(within(dialog).getByRole('button', { name: 'Stay signed in' }))
+    expect(screen.queryByRole('dialog')).toBeNull()
+    expect(auth.signOut).not.toHaveBeenCalled()
+
+    await view.user.click(screen.getByRole('button', { name: 'Sign out' }))
+    await view.user.click(within(screen.getByRole('dialog')).getByRole('button', { name: 'Sign out' }))
+    expect(screen.queryByRole('dialog')).toBeNull()
+    expect(auth.signOut).toHaveBeenCalledTimes(1)
   })
 
   it('links admins to the back office, full width when asked', () => {

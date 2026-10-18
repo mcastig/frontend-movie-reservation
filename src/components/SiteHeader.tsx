@@ -1,11 +1,14 @@
+import { useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router'
 import { useAuth } from '../auth/context'
 import { config } from '../config'
+import { ConfirmDialog } from './ConfirmDialog'
 import styles from './SiteHeader.module.css'
 
 export function SiteHeader({ wide }: { wide?: boolean }) {
   const { status, user, signOut } = useAuth()
   const location = useLocation()
+  const [confirming, setConfirming] = useState(false)
 
   return (
     <header className={styles.bar}>
@@ -24,9 +27,21 @@ export function SiteHeader({ wide }: { wide?: boolean }) {
               <NavLink to="/bookings" className={styles.link}>
                 My bookings
               </NavLink>
-              <button type="button" className={styles.signOut} onClick={() => signOut()}>
+              <button type="button" className={styles.signOut} onClick={() => setConfirming(true)}>
                 Sign out
               </button>
+              <ConfirmDialog
+                open={confirming}
+                title="Sign out?"
+                message="You’ll need to sign in again to book seats or see your bookings."
+                confirmLabel="Sign out"
+                cancelLabel="Stay signed in"
+                onConfirm={() => {
+                  setConfirming(false)
+                  signOut()
+                }}
+                onCancel={() => setConfirming(false)}
+              />
             </>
           ) : (
             status === 'signedOut' && (

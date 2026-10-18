@@ -1,0 +1,48 @@
+.dialog {
+  width: min(100% - 2 * var(--gutter), 26rem);
+  padding: 0;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-raised);
+}
+
+.dialog::backdrop {
+  background: rgb(17 24 39 / 0.5);
+}
+
+.body {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-5);
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.message {
+  font-size: var(--step--1);
+  color: var(--text-quiet);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 30rem) {
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .actions > button {
+    width: 100%;
+  }
+}
