@@ -1,0 +1,31 @@
+# Render static site for the web app. The API is a separate Render service.
+services:
+  - type: web
+    name: movie-reservation-web
+    runtime: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://movie-reservation-api-q5am.onrender.com
+      - key: VITE_CURRENCY
+        value: USD
+    routes:
+      # Deep links (/showtimes/5, /bookings) all load the app.
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      # Only the API and Google Fonts. Posters can be any https image.
+      - path: /*
+        name: Content-Security-Policy
+        value: "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://movie-reservation-api-q5am.onrender.com; img-src 'self' https: data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
