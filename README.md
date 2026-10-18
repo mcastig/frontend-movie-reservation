@@ -62,8 +62,8 @@ app that's already running instead. Every test runs on a phone and a desktop vie
 
 ## CI
 
-`.github/workflows/web.yml` runs lint, typecheck, unit tests and the build on every push to `main` and every pull request. The
-end-to-end tests aren't in CI because they need a seeded API.
+`.github/workflows/web.yml` runs lint, typecheck, unit tests (failing below 100% coverage) and the build on every push to
+`main` and every pull request. The end-to-end tests aren't in CI because they need a seeded API.
 
 ## Deploy
 

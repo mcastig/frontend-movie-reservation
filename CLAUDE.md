@@ -22,8 +22,8 @@ The spec puts the app in `web/` of the API repo. Here it lives at this repo's ro
   (`E2E_API_URL`, default `http://localhost:3000`). Admin specs need `E2E_ADMIN_EMAIL` and `E2E_ADMIN_PASSWORD`.
   `E2E_BASE_URL` points the suite at an already-running app.
 - `npm run gen:api`: regenerate `src/api/schema.d.ts` from `$VITE_API_URL/openapi.json` after any API change
-- CI (`.github/workflows/web.yml`, Node 22) runs lint, typecheck, unit tests and build. Run those four before calling work done;
-  e2e isn't in CI.
+- CI (`.github/workflows/web.yml`, Node 22) runs lint, typecheck, `test:coverage` (fails below 100%) and build. Run those four
+  before calling work done; e2e isn't in CI.
 
 ## Architecture
 
