@@ -5,6 +5,7 @@ import { useAuth } from '../auth/context'
 import { returnPath, type AuthState } from '../auth/returnPath'
 import { Button } from '../components/Button'
 import { TextField } from '../components/Field'
+import { Spinner } from '../components/Spinner'
 import { useDocumentTitle } from '../lib/lights'
 import styles from './Auth.module.css'
 
@@ -72,7 +73,14 @@ export function SignInPage() {
           </p>
         )}
         <Button type="submit" disabled={pending}>
-          {pending ? 'Signing in…' : 'Sign in'}
+          {pending ? (
+            <>
+              <Spinner />
+              <span className="visually-hidden">Signing in…</span>
+            </>
+          ) : (
+            'Sign in'
+          )}
         </Button>
       </form>
     </div>

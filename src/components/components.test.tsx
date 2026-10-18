@@ -142,11 +142,16 @@ describe('ListingRow', () => {
 })
 
 describe('PageState', () => {
-  it('shows loading, with a default message', () => {
-    const { rerender } = render(<PageState kind="loading" />)
+  it('shows a spinner while loading, speaking “Loading…” without showing it', () => {
+    const { container } = render(<PageState kind="loading" />)
     expect(screen.getByRole('status')).toHaveTextContent('Loading…')
-    rerender(<PageState kind="loading" message="Dimming the lights…" />)
-    expect(screen.getByRole('status')).toHaveTextContent('Dimming the lights…')
+    expect(screen.getByText('Loading…')).toHaveClass('visually-hidden')
+    expect(container.querySelector('[aria-hidden="true"]')!.className).toMatch(/spinner/)
+  })
+
+  it('shows a custom loading message under the spinner', () => {
+    render(<PageState kind="loading" message="Opening the box office…" />)
+    expect(screen.getByText('Opening the box office…')).not.toHaveClass('visually-hidden')
   })
 
   it('shows an empty state with an action', () => {

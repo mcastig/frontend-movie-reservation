@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { describeError } from '../api/errors'
 import { Button } from './Button'
 import styles from './PageState.module.css'
+import { Spinner } from './Spinner'
 
 type Props =
   | { kind: 'loading'; message?: string }
@@ -10,9 +11,15 @@ type Props =
 
 export function PageState(props: Props) {
   if (props.kind === 'loading') {
+    // A spinner; a custom message (a longer wait) is shown, the default one is only spoken.
     return (
-      <div className={styles.state} role="status">
-        <p className={`${styles.message} ${styles.loading}`}>{props.message ?? 'Loading…'}</p>
+      <div className={`${styles.state} ${styles.loadingState}`} role="status">
+        <span className={styles.spinner}>
+          <Spinner />
+        </span>
+        <p className={props.message ? `${styles.message} ${styles.loading}` : 'visually-hidden'}>
+          {props.message ?? 'Loading…'}
+        </p>
       </div>
     )
   }

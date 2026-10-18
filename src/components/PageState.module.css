@@ -19,6 +19,16 @@
   color: var(--text-quiet);
 }
 
+.loadingState {
+  justify-items: center;
+  max-width: none;
+}
+
+.spinner {
+  font-size: 2rem;
+  color: var(--fill);
+}
+
 /* Nothing to show: a dashed panel that points to what to do next */
 .empty {
   justify-items: center;

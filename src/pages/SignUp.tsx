@@ -5,6 +5,7 @@ import { useAuth } from '../auth/context'
 import { returnPath, type AuthState } from '../auth/returnPath'
 import { Button } from '../components/Button'
 import { TextField } from '../components/Field'
+import { Spinner } from '../components/Spinner'
 import { useDocumentTitle } from '../lib/lights'
 import styles from './Auth.module.css'
 
@@ -82,7 +83,14 @@ export function SignUpPage() {
           </p>
         )}
         <Button type="submit" disabled={pending}>
-          {pending ? 'Creating your account…' : 'Create account'}
+          {pending ? (
+            <>
+              <Spinner />
+              <span className="visually-hidden">Creating your account…</span>
+            </>
+          ) : (
+            'Create account'
+          )}
         </Button>
       </form>
     </div>

@@ -33,6 +33,7 @@ describe('SignInPage', () => {
     const view = renderPage(<SignInPage />, { path: '/signin', auth: fakeAuth({ signIn: () => new Promise(() => {}) }) })
     await fill(view)
     expect(screen.getByRole('button', { name: 'Signing in…' })).toBeDisabled()
+    expect(screen.getByText('Signing in…')).toHaveClass('visually-hidden')
   })
 
   it('skips the form when already signed in', () => {
