@@ -75,15 +75,22 @@ describe('BookingsPage', () => {
   })
 
   describe('cancelling', () => {
-    it('asks first, and can be called off', async () => {
-      api({ 'GET /reservations/me': page([soon]) })
+    const dialog = () => screen.getByRole('dialog')
+
+    it('asks in a dialog first, and can be called off', async () => {
+      const server = api({ 'GET /reservations/me': page([soon]) })
       const view = renderPage(<BookingsPage />, { path: '/bookings', auth: signedInAs(guest) })
+      expect(screen.queryByRole('dialog')).toBeNull()
+
       await view.user.click(await screen.findByRole('button', { name: 'Cancel booking' }))
-      expect(screen.getByRole('group', { name: 'Confirm cancellation' })).toHaveTextContent(
-        'Cancel Soon? Seats B1 and B2 will go back on sale.',
+      expect(screen.getByRole('dialog', { name: 'Cancel Soon?' })).toHaveAccessibleDescription(
+        'Seats B1 and B2 will go back on sale. This can’t be undone.',
       )
-      await view.user.click(screen.getByRole('button', { name: 'Keep booking' }))
-      expect(screen.getByRole('button', { name: 'Cancel booking' })).toBeInTheDocument()
+      expect(within(dialog()).getByRole('button', { name: 'Keep booking' })).toHaveFocus()
+
+      await view.user.click(within(dialog()).getByRole('button', { name: 'Keep booking' }))
+      expect(screen.queryByRole('dialog')).toBeNull()
+      expect(server.matching('POST', '/reservations/1/cancel')).toHaveLength(0)
     })
 
     it('cancels and confirms which seats are free', async () => {
@@ -93,8 +100,9 @@ describe('BookingsPage', () => {
       })
       const view = renderPage(<BookingsPage />, { path: '/bookings', auth: signedInAs(guest) })
       await view.user.click(await screen.findByRole('button', { name: 'Cancel booking' }))
-      await view.user.click(screen.getByRole('button', { name: 'Yes, cancel booking' }))
+      await view.user.click(within(dialog()).getByRole('button', { name: 'Yes, cancel booking' }))
       expect(await screen.findByText('Booking cancelled. Seats B1 and B2 are free again.')).toBeInTheDocument()
+      expect(screen.queryByRole('dialog')).toBeNull()
       expect(server.matching('POST', '/reservations/1/cancel')).toHaveLength(1)
     })
 
@@ -105,12 +113,12 @@ describe('BookingsPage', () => {
       })
       const view = renderPage(<BookingsPage />, { path: '/bookings', auth: signedInAs(guest) })
       await view.user.click(await screen.findByRole('button', { name: 'Cancel booking' }))
-      expect(screen.getByText('Cancel Later? Seat C7 will go back on sale.')).toBeInTheDocument()
-      await view.user.click(screen.getByRole('button', { name: 'Yes, cancel booking' }))
+      expect(dialog()).toHaveAccessibleDescription('Seat C7 will go back on sale. This can’t be undone.')
+      await view.user.click(within(dialog()).getByRole('button', { name: 'Yes, cancel booking' }))
       expect(await screen.findByText('Booking cancelled. Seat C7 is free again.')).toBeInTheDocument()
     })
 
-    it('shows progress, then why it failed', async () => {
+    it('locks the dialog while cancelling, then explains a failure there', async () => {
       let answer!: (response: Response) => void
       api({
         'GET /reservations/me': page([soon]),
@@ -118,12 +126,17 @@ describe('BookingsPage', () => {
       })
       const view = renderPage(<BookingsPage />, { path: '/bookings', auth: signedInAs(guest) })
       await view.user.click(await screen.findByRole('button', { name: 'Cancel booking' }))
-      await view.user.click(screen.getByRole('button', { name: 'Yes, cancel booking' }))
-      expect(await screen.findByRole('button', { name: 'Cancelling…' })).toBeDisabled()
-      expect(screen.getByRole('button', { name: 'Keep booking' })).toBeDisabled()
+      await view.user.click(within(dialog()).getByRole('button', { name: 'Yes, cancel booking' }))
+      expect(await within(dialog()).findByRole('button', { name: 'Cancelling…' })).toBeDisabled()
+      expect(within(dialog()).getByRole('button', { name: 'Keep booking' })).toBeDisabled()
 
       answer(fail(409, 'SHOWTIME_STARTED')())
-      expect(await screen.findByRole('alert')).toHaveTextContent('This showtime has started')
+      expect(await within(dialog()).findByRole('alert')).toHaveTextContent('This showtime has started')
+
+      // Closing and asking again starts clean.
+      await view.user.click(within(dialog()).getByRole('button', { name: 'Keep booking' }))
+      await view.user.click(screen.getByRole('button', { name: 'Cancel booking' }))
+      expect(within(dialog()).queryByRole('alert')).toBeNull()
     })
   })
 

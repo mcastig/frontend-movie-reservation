@@ -4,6 +4,7 @@ import { useCancelBooking, useCinemaTimezone, useMyBookings } from '../api/hooks
 import type { Reservation } from '../api/types'
 import { useAuth } from '../auth/context'
 import { Button, ButtonLink } from '../components/Button'
+import { ConfirmDialog } from '../components/ConfirmDialog'
 import { PageState } from '../components/PageState'
 import { Ticket } from '../components/Ticket'
 import { useToast } from '../components/toast-context'
@@ -89,42 +90,40 @@ function CancelBooking({ reservation }: { reservation: Reservation }) {
   const seats = joinSeats(reservation.seats.map(seatCode))
   const plural = reservation.seats.length > 1
 
-  if (!confirming) {
-    return (
-      <Button variant="quiet" small onClick={() => setConfirming(true)}>
+  return (
+    <>
+      <Button
+        variant="quiet"
+        small
+        onClick={() => {
+          cancel.reset()
+          setConfirming(true)
+        }}
+      >
         Cancel booking
       </Button>
-    )
-  }
-
-  return (
-    <div className={`panel ${styles.confirm}`} role="group" aria-label="Confirm cancellation">
-      <p>
-        Cancel {reservation.showtime.movie.title}? {plural ? 'Seats' : 'Seat'} {seats} will go back on sale.
-      </p>
-      <Button
-        variant="danger"
-        small
-        disabled={cancel.isPending}
-        onClick={() =>
+      <ConfirmDialog
+        open={confirming}
+        title={`Cancel ${reservation.showtime.movie.title}?`}
+        message={`${plural ? 'Seats' : 'Seat'} ${seats} will go back on sale. This can’t be undone.`}
+        confirmLabel="Yes, cancel booking"
+        cancelLabel="Keep booking"
+        danger
+        pending={cancel.isPending}
+        pendingLabel="Cancelling…"
+        error={cancel.isError ? describeError(cancel.error) : undefined}
+        onCancel={() => setConfirming(false)}
+        onConfirm={() =>
           cancel.mutate(reservation.id, {
-            onSuccess: () =>
+            onSuccess: () => {
+              setConfirming(false)
               toast({
                 message: `Booking cancelled. ${plural ? 'Seats' : 'Seat'} ${seats} ${plural ? 'are' : 'is'} free again.`,
-              }),
+              })
+            },
           })
         }
-      >
-        {cancel.isPending ? 'Cancelling…' : 'Yes, cancel booking'}
-      </Button>
-      <Button variant="quiet" small onClick={() => setConfirming(false)} disabled={cancel.isPending}>
-        Keep booking
-      </Button>
-      {cancel.isError && (
-        <p className={styles.error} role="alert">
-          {describeError(cancel.error)}
-        </p>
-      )}
-    </div>
+      />
+    </>
   )
 }

@@ -74,4 +74,41 @@ describe('ConfirmDialog', () => {
     fireEvent.click(dialog)
     expect(onCancel).toHaveBeenCalledTimes(1)
   })
+
+  it('uses a plain confirm button unless the answer is destructive', () => {
+    const { rerender } = render(
+      <ConfirmDialog open title="Sign out?" message="m" confirmLabel="Sign out" cancelLabel="Stay" onConfirm={() => {}} onCancel={() => {}} />,
+    )
+    expect(screen.getByRole('button', { name: 'Sign out' }).className).toMatch(/primary/)
+    rerender(
+      <ConfirmDialog open danger title="Cancel?" message="m" confirmLabel="Yes, cancel" cancelLabel="Keep" onConfirm={() => {}} onCancel={() => {}} />,
+    )
+    expect(screen.getByRole('button', { name: 'Yes, cancel' }).className).toMatch(/danger/)
+  })
+
+  it('locks both answers while pending, and can’t be dismissed', () => {
+    const onCancel = vi.fn()
+    const { container, rerender } = render(
+      <ConfirmDialog open pending pendingLabel="Cancelling…" title="Cancel?" message="m" confirmLabel="Yes" cancelLabel="Keep" onConfirm={() => {}} onCancel={onCancel} />,
+    )
+    const dialog = container.querySelector('dialog')!
+    expect(screen.getByRole('button', { name: 'Cancelling…' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Keep' })).toBeDisabled()
+    fireEvent(dialog, new Event('cancel', { cancelable: true }))
+    fireEvent.click(dialog)
+    expect(onCancel).not.toHaveBeenCalled()
+
+    // Without a pending label, the confirm label is spoken.
+    rerender(
+      <ConfirmDialog open pending title="Cancel?" message="m" confirmLabel="Yes" cancelLabel="Keep" onConfirm={() => {}} onCancel={onCancel} />,
+    )
+    expect(screen.getByRole('button', { name: 'Yes' })).toBeDisabled()
+  })
+
+  it('shows why carrying out the answer failed', () => {
+    render(
+      <ConfirmDialog open error="This showtime has started." title="Cancel?" message="m" confirmLabel="Yes" cancelLabel="Keep" onConfirm={() => {}} onCancel={() => {}} />,
+    )
+    expect(screen.getByRole('alert')).toHaveTextContent('This showtime has started.')
+  })
 })

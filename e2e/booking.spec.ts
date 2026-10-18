@@ -82,7 +82,7 @@ test('books B3 and B4 by keyboard, a second browser gets the friendly conflict, 
   await signIn(page, first.email, first.password)
   await page.goto('/bookings')
   await page.getByRole('button', { name: 'Cancel booking' }).first().click()
-  await page.getByRole('button', { name: 'Yes, cancel booking' }).click()
+  await page.getByRole('dialog').getByRole('button', { name: 'Yes, cancel booking' }).click()
   await expect(page.getByText('Booking cancelled. Seats B3 and B4 are free again.')).toBeVisible()
   await page.goto('/showtimes/1')
   await expect(seat(page, 'B', 3)).toBeEnabled()

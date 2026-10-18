@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef } from 'react'
 import { Button } from './Button'
 import styles from './ConfirmDialog.module.css'
+import { Spinner } from './Spinner'
 
 interface Props {
   open: boolean
@@ -10,11 +11,30 @@ interface Props {
   cancelLabel: string
   onConfirm: () => void
   onCancel: () => void
+  // A confirm that can't be undone (cancelling a booking) gets the red button.
+  danger?: boolean
+  // While the answer is being carried out: a spinner, both answers locked.
+  pending?: boolean
+  pendingLabel?: string
+  // Why carrying it out failed, shown in the dialog.
+  error?: string
 }
 
 // A modal question with two answers. The native <dialog> makes the rest of the
 // page inert, keeps focus inside and closes on Escape; React stays in charge of `open`.
-export function ConfirmDialog({ open, title, message, confirmLabel, cancelLabel, onConfirm, onCancel }: Props) {
+export function ConfirmDialog({
+  open,
+  title,
+  message,
+  confirmLabel,
+  cancelLabel,
+  onConfirm,
+  onCancel,
+  danger,
+  pending,
+  pendingLabel,
+  error,
+}: Props) {
   const ref = useRef<HTMLDialogElement>(null)
   const cancelRef = useRef<HTMLButtonElement>(null)
   const titleId = useId()
@@ -30,6 +50,11 @@ export function ConfirmDialog({ open, title, message, confirmLabel, cancelLabel,
     if (!open && dialog.open) dialog.close()
   }, [open])
 
+  // Nothing closes the dialog halfway through carrying out the answer.
+  const dismiss = () => {
+    if (!pending) onCancel()
+  }
+
   return (
     <dialog
       ref={ref}
@@ -39,7 +64,7 @@ export function ConfirmDialog({ open, title, message, confirmLabel, cancelLabel,
       onCancel={(event) => {
         // Escape: let the parent close it.
         event.preventDefault()
-        onCancel()
+        dismiss()
       }}
       onClose={() => {
         // Closed by the browser anyway (a second Escape): keep the parent in sync.
@@ -47,7 +72,7 @@ export function ConfirmDialog({ open, title, message, confirmLabel, cancelLabel,
       }}
       onClick={(event) => {
         // A click on the backdrop lands on the dialog element itself.
-        if (event.target === event.currentTarget) onCancel()
+        if (event.target === event.currentTarget) dismiss()
       }}
     >
       {open && (
@@ -58,11 +83,25 @@ export function ConfirmDialog({ open, title, message, confirmLabel, cancelLabel,
           <p id={messageId} className={styles.message}>
             {message}
           </p>
+          {error && (
+            <p className={styles.error} role="alert">
+              {error}
+            </p>
+          )}
           <div className={styles.actions}>
-            <Button ref={cancelRef} variant="quiet" onClick={onCancel}>
+            <Button ref={cancelRef} variant="quiet" onClick={dismiss} disabled={pending}>
               {cancelLabel}
             </Button>
-            <Button onClick={onConfirm}>{confirmLabel}</Button>
+            <Button variant={danger ? 'danger' : 'primary'} onClick={onConfirm} disabled={pending}>
+              {pending ? (
+                <>
+                  <Spinner />
+                  <span className="visually-hidden">{pendingLabel ?? confirmLabel}</span>
+                </>
+              ) : (
+                confirmLabel
+              )}
+            </Button>
           </div>
         </div>
       )}
