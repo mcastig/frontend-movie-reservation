@@ -16,36 +16,37 @@ npm run dev        # http://localhost:5173, proxied to the API in .env.developme
 
 The live API is on a free plan that sleeps when idle, so the first load can take up to a minute. The app says so while it waits.
 
-| Command              | What it does                                                       |
-| -------------------- | ------------------------------------------------------------------ |
-| `npm run dev`        | Dev server; `/api/*` is forwarded to `VITE_API_URL`                |
-| `npm run build`      | Type-check, then build to `dist/`                                  |
-| `npm run preview`    | Serve the built `dist/`                                            |
-| `npm run lint`       | ESLint                                                             |
-| `npm run typecheck`  | `tsc -b` for the app, Node config and e2e projects                 |
-| `npm test`           | Unit tests (Vitest); `npm run test:watch` to watch                 |
-| `npm run test:e2e`   | Playwright, against the local API with seed data (see below)       |
-| `npm run gen:api`    | Regenerate `src/api/schema.d.ts` from `$VITE_API_URL/openapi.json` |
+| Command                 | What it does                                                       |
+| ----------------------- | ------------------------------------------------------------------ |
+| `npm run dev`           | Dev server; `/api/*` is forwarded to `VITE_API_URL`                |
+| `npm run build`         | Type-check, then build to `dist/`                                  |
+| `npm run preview`       | Serve the built `dist/`                                            |
+| `npm run lint`          | ESLint                                                             |
+| `npm run typecheck`     | `tsc -b` for the app, Node config and e2e projects                 |
+| `npm test`              | Unit tests (Vitest); `npm run test:watch` to watch                 |
+| `npm run test:coverage` | Unit tests with coverage; fails below 100%                         |
+| `npm run test:e2e`      | Playwright, against the local API with seed data (see below)       |
+| `npm run gen:api`       | Regenerate `src/api/schema.d.ts` from `$VITE_API_URL/openapi.json` |
 
 ## Pages
 
-| Path              | Page                                                             |
-| ----------------- | ---------------------------------------------------------------- |
-| `/`               | Listings by day                                                  |
-| `/movies/:id`     | A movie and its showtimes                                        |
-| `/showtimes/:id`  | Seat plan and booking, with the lights down                      |
-| `/bookings`       | Your bookings (signed in)                                        |
-| `/signin`, `/signup` | Accounts                                                      |
-| `/admin/*`        | Back office (admins): movies, schedule, bookings, reports, users |
-| `/styleguide`     | Tokens and components in both lighting states (dev only)         |
+| Path                 | Page                                                             |
+| -------------------- | ---------------------------------------------------------------- |
+| `/`                  | Listings by day                                                  |
+| `/movies/:id`        | A movie and its showtimes                                        |
+| `/showtimes/:id`     | Seat plan and booking, with the lights down                      |
+| `/bookings`          | Your bookings (signed in)                                        |
+| `/signin`, `/signup` | Accounts                                                         |
+| `/admin/*`           | Back office (admins): movies, schedule, bookings, reports, users |
+| `/styleguide`        | Tokens and components in both lighting states (dev only)         |
 
 ## Configuration
 
-| Variable           | Default                  | Notes                                                           |
-| ------------------ | ------------------------ | --------------------------------------------------------------- |
-| `VITE_API_URL`     | `http://localhost:3000`  | The live API is set in `.env.development` and `.env.production` |
-| `VITE_CURRENCY`    | `USD`                    | The API has no currency field                                   |
-| `VITE_CINEMA_NAME` | `The Lantern`            | Shown in the header                                             |
+| Variable           | Default                 | Notes                                                           |
+| ------------------ | ----------------------- | --------------------------------------------------------------- |
+| `VITE_API_URL`     | `http://localhost:3000` | The live API is set in `.env.development` and `.env.production` |
+| `VITE_CURRENCY`    | `USD`                   | The API has no currency field                                   |
+| `VITE_CINEMA_NAME` | `The Lantern`           | Shown in the header                                             |
 
 ## End-to-end tests
 

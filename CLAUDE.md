@@ -16,6 +16,8 @@ The spec puts the app in `web/` of the API repo. Here it lives at this repo's ro
 - `npm run build`: `tsc -b` (app, node and e2e projects), then `vite build`
 - `npm run lint` / `npm run typecheck` / `npm test` (Vitest, `src/**/*.test.ts(x)`)
 - Run a single unit test: `npx vitest run src/api/client.test.ts -t "refreshes once"`
+- `npm run test:coverage`: coverage is held at 100% (statements, branches, functions, lines). Cover new code with tests;
+  use a commented `/* v8 ignore */` only for branches that truly can't run.
 - `npm run test:e2e`: Playwright in `e2e/`. Booking and admin specs mutate data, so run them only against a local seeded API
   (`E2E_API_URL`, default `http://localhost:3000`). Admin specs need `E2E_ADMIN_EMAIL` and `E2E_ADMIN_PASSWORD`.
   `E2E_BASE_URL` points the suite at an already-running app.
@@ -61,6 +63,18 @@ The spec puts the app in `web/` of the API repo. Here it lives at this repo's ro
   for movie titles, showtimes, seat codes and totals), `.page`, `.visually-hidden` and `.quiet`.
 - **Back office** (`pages/admin/`): plain Atkinson tables and forms. Until backend tasks B2 and B3 land, halls are discovered
   from listings and users from admin reservations.
+
+## Unit tests
+
+- Tests sit next to their file (`Foo.tsx` → `Foo.test.tsx`); the small presentational components share
+  `components/components.test.tsx`. Shared helpers are in `src/test/`:
+  - `api.ts`: `mockApi({ 'GET /movies/{id}': body | handler })` stubs `fetch` behind the real client and hooks, so tests go
+    through `authFetch` and TanStack Query; `fail(status, code)` builds an error reply, and `hang` never answers.
+  - `render.tsx`: `renderPage(ui, { path, route, auth, state })` mounts inside QueryClient, a fake `AuthContext`, the toast
+    provider and a memory router; `locationOf()`/`stateOf()` read where navigation went.
+  - `fixtures.ts`: movies, listings, seat plans and bookings, with dates relative to today in UTC (the fake cinema's timezone).
+- `test-setup.ts` cleans up after every test (DOM, timers, stubbed globals and env, tokens, localStorage).
+- Modules with load-time state (`config`, `router`, `AuthProvider`'s restore) are re-imported with `vi.resetModules()`.
 
 ## Conventions
 
