@@ -25,10 +25,11 @@ export function AdminUsersPage() {
   const people = new Map<number, Person>()
   bookings.data?.data.forEach((r) => people.set(r.user.id, r.user))
   const needle = query.trim().toLowerCase()
-  const matches = [...people.values()].filter(
-    (p) => !needle || p.name.toLowerCase().includes(needle) || p.email.toLowerCase().includes(needle),
-  )
   const byNumber = /^\d+$/.test(needle) ? Number(needle) : undefined
+  const matches = [...people.values()].filter(
+    (p) =>
+      !needle || p.id === byNumber || p.name.toLowerCase().includes(needle) || p.email.toLowerCase().includes(needle),
+  )
 
   return (
     <section className={styles.section} aria-labelledby="users-title">
