@@ -95,8 +95,10 @@ export function ShowtimePage() {
   }
 
   const index = seatIndex(plan.data)
+  // Skips picks the plan doesn't have: on the render that checks a new plan,
+  // `selected` still holds them until React re-renders with the cleaned list.
   const picks = selected
-    .map((seatId) => index.get(seatId)!)
+    .flatMap((seatId) => index.get(seatId) ?? [])
     .sort((a, b) => a.row.localeCompare(b.row) || a.seat.number - b.seat.number)
   const codes = picks.map(({ seat, row }) => seatCode({ row, number: seat.number }))
   const day = formatDayOf(showtime.startsAt, timezone)
