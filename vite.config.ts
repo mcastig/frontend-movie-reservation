@@ -25,6 +25,13 @@ export default defineConfig(({ mode }) => {
       environment: 'jsdom',
       setupFiles: ['./src/test-setup.ts'],
       include: ['src/**/*.test.{ts,tsx}'],
+      coverage: {
+        provider: 'v8',
+        include: ['src/**/*.{ts,tsx}'],
+        // Generated or type-only files, and the test harness itself.
+        exclude: ['src/**/*.test.{ts,tsx}', 'src/test/**', 'src/test-setup.ts', 'src/**/*.d.ts', 'src/api/types.ts'],
+        thresholds: { 100: true },
+      },
     },
   }
 })
