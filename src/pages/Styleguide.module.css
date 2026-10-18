@@ -1,0 +1,63 @@
+.panels {
+  display: grid;
+  gap: var(--space-6);
+  padding-block: var(--space-5) var(--space-8);
+}
+
+.panel {
+  display: grid;
+  gap: var(--space-6);
+  padding: var(--space-5) var(--gutter);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: var(--radius);
+}
+
+.group {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.label {
+  font-size: var(--step--1);
+  color: var(--text-quiet);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: 0;
+  list-style: none;
+}
+
+.poster {
+  width: 7rem;
+}
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: 0;
+  list-style: none;
+  font-size: var(--step--1);
+}
+
+.swatch {
+  display: grid;
+  gap: var(--space-1);
+  width: 7rem;
+}
+
+.chip {
+  height: 2.5rem;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+}
+
+.type {
+  display: grid;
+  gap: var(--space-2);
+}

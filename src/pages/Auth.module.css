@@ -1,0 +1,25 @@
+.wrap {
+  display: grid;
+  gap: var(--space-5);
+  max-width: 26rem;
+  padding-block: var(--space-6) var(--space-8);
+}
+
+.form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.formError {
+  color: var(--error);
+  font-weight: 700;
+}
+
+.switch {
+  color: var(--text-quiet);
+}
+
+.switch a {
+  color: var(--text);
+  font-weight: 700;
+}
