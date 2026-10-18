@@ -61,7 +61,7 @@ export function MoviePage() {
             Showtimes this week
           </h2>
           {schedule.length > 0 ? (
-            <ul className={styles.days}>
+            <ul className={`panel ${styles.days}`}>
               {schedule.map((day) => (
                 <li key={day.date} className={styles.day}>
                   <span className={styles.dayName}>{day.date === today ? 'Today' : formatDay(day.date)}</span>

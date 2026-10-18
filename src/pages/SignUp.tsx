@@ -46,9 +46,17 @@ export function SignUpPage() {
 
   return (
     <div className={`page ${styles.wrap}`}>
-      <h1 className="page-title">Create an account</h1>
-      {state?.reason === 'book' && <p>You need an account to book seats. Your picks are kept.</p>}
-      <form className={styles.form} onSubmit={onSubmit} noValidate>
+      <div className={styles.intro}>
+        <h1 className="page-title">Create an account</h1>
+        <p className={styles.switch}>
+          Already have an account?{' '}
+          <Link to="/signin" state={state}>
+            Sign in
+          </Link>
+        </p>
+        {state?.reason === 'book' && <p className={styles.reason}>You need an account to book seats. Your picks are kept.</p>}
+      </div>
+      <form className={`panel ${styles.form}`} onSubmit={onSubmit} noValidate>
         <TextField label="Name" name="name" autoComplete="name" required maxLength={100} error={fieldError('name')} />
         <TextField
           label="Email"
@@ -73,18 +81,10 @@ export function SignUpPage() {
             {describeError(error)}
           </p>
         )}
-        <div>
-          <Button type="submit" disabled={pending}>
-            {pending ? 'Creating your account…' : 'Create account'}
-          </Button>
-        </div>
+        <Button type="submit" disabled={pending}>
+          {pending ? 'Creating your account…' : 'Create account'}
+        </Button>
       </form>
-      <p className={styles.switch}>
-        Already have an account?{' '}
-        <Link to="/signin" state={state}>
-          Sign in
-        </Link>
-      </p>
     </div>
   )
 }

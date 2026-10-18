@@ -98,7 +98,7 @@ function CancelBooking({ reservation }: { reservation: Reservation }) {
   }
 
   return (
-    <div className={styles.confirm} role="group" aria-label="Confirm cancellation">
+    <div className={`panel ${styles.confirm}`} role="group" aria-label="Confirm cancellation">
       <p>
         Cancel {reservation.showtime.movie.title}? {plural ? 'Seats' : 'Seat'} {seats} will go back on sale.
       </p>

@@ -1,4 +1,4 @@
-/* The back office is a tool: Atkinson only, dense tables, left-aligned forms. */
+/* The back office is a tool: Inter only, tables and stats on white panels, left-aligned forms. */
 
 .shell {
   padding-inline: var(--gutter);
@@ -7,30 +7,35 @@
 
 .tabs {
   display: flex;
-  gap: var(--space-1);
+  gap: var(--space-5);
   margin-inline: calc(-1 * var(--gutter));
   padding-inline: var(--gutter);
   overflow-x: auto;
   border-bottom: 1px solid var(--line-soft);
+  background: var(--surface);
   list-style: none;
 }
 
 .tab {
   display: block;
-  padding: var(--space-2) var(--space-3);
-  border-bottom: 3px solid transparent;
+  padding: var(--space-3) var(--space-1);
+  margin-bottom: -1px;
+  border-bottom: 2px solid transparent;
+  font-size: var(--step--1);
+  font-weight: 500;
   color: var(--text-quiet);
   text-decoration: none;
   white-space: nowrap;
 }
 
 .tab:hover {
-  color: var(--text);
+  color: var(--heading);
+  border-bottom-color: var(--line);
 }
 
 .tab[aria-current='page'] {
-  color: var(--text);
-  font-weight: 700;
+  color: var(--fill);
+  font-weight: 600;
   border-bottom-color: var(--fill);
 }
 
@@ -51,11 +56,13 @@
 .title {
   font-size: var(--step-2);
   font-weight: 700;
+  letter-spacing: -0.025em;
 }
 
 .subtitle {
-  font-size: var(--step-1);
-  font-weight: 700;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .note {
@@ -67,7 +74,9 @@
 .tableWrap {
   overflow-x: auto;
   border: 1px solid var(--line-soft);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow);
 }
 
 .table {
@@ -78,15 +87,20 @@
 
 .table th,
 .table td {
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-3) var(--space-4);
   border-bottom: 1px solid var(--line-soft);
   text-align: left;
   vertical-align: top;
 }
 
 .table th {
-  font-weight: 700;
+  font-weight: 600;
+  color: var(--heading);
   white-space: nowrap;
+}
+
+.table thead th {
+  background: var(--surface-sunk);
 }
 
 .table tbody tr:last-child td {
@@ -94,9 +108,11 @@
 }
 
 .table tfoot td {
-  border-top: 2px solid var(--line);
+  border-top: 1px solid var(--line);
   border-bottom: 0;
-  font-weight: 700;
+  background: var(--surface-sunk);
+  color: var(--heading);
+  font-weight: 600;
 }
 
 .num {
@@ -143,7 +159,9 @@
 .checks legend {
   margin-bottom: var(--space-2);
   padding: 0;
-  font-weight: 700;
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--heading);
 }
 
 .check {
@@ -156,25 +174,27 @@
 .check input {
   width: 1.125rem;
   height: 1.125rem;
-  accent-color: var(--house-navy);
+  accent-color: var(--fill);
 }
 
 .error {
+  font-size: var(--step--1);
   color: var(--error);
-  font-weight: 700;
 }
 
 .bar {
   position: relative;
   width: 8rem;
-  height: 0.75rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
+  height: 0.5rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--gray-200);
 }
 
 .barFill {
   position: absolute;
   inset: 0 auto 0 0;
+  border-radius: inherit;
   background: var(--fill);
 }
 
@@ -185,20 +205,34 @@
   white-space: nowrap;
 }
 
+/* Stats as small white cards */
 .totals {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3) var(--space-6);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: var(--space-3);
+}
+
+.totals > div {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow);
 }
 
 .totals dt {
   font-size: var(--step--1);
+  font-weight: 500;
   color: var(--text-quiet);
 }
 
 .totals dd {
   font-size: var(--step-2);
-  font-weight: 700;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--heading);
 }
 
 .pager {
@@ -227,7 +261,8 @@
   padding: 0;
   border: 0;
   background: none;
-  color: var(--text);
+  color: var(--fill);
+  font-weight: 500;
   text-decoration: underline;
   cursor: pointer;
   font-size: inherit;

@@ -7,7 +7,7 @@ describe('StyleguidePage', () => {
   it('shows the palette and both lighting states', () => {
     renderPage(<StyleguidePage />, { path: '/styleguide' })
     expect(document.title).toBe('Style guide')
-    expect(screen.getByText('Screen silver')).toBeInTheDocument()
+    expect(screen.getByText('Ticket gold')).toBeInTheDocument()
     expect(screen.getByRole('region', { name: 'House lights up' })).toHaveAttribute('data-lights', 'up')
     expect(screen.getByRole('region', { name: 'House lights down' })).toHaveAttribute('data-lights', 'down')
   })

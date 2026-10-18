@@ -47,28 +47,40 @@ That one transition is the app's signature. Everything else stays quiet.
 
 ### Color
 
-| Name          | Hex       | Used for                                                                       |
-| ------------- | --------- | ------------------------------------------------------------------------------ |
-| Screen silver | `#E8ECEF` | Page background with the lights up (cool, like a projection screen, not cream) |
-| House navy    | `#1A2042` | Text with the lights up; the background with the lights down                   |
-| Seat rose     | `#E9A3AE` | Selected seats and booking stubs (the color of an old "admit one" ticket roll) |
-| Usher grey    | `#5B6380` | Secondary text and borders with the lights up                                  |
-| Velvet slate  | `#8B93AE` | Taken seats; secondary text with the lights down                               |
-| Screen glow   | `#F6F7FB` | The screen arc and available seats with the lights down                        |
-| Alarm red     | `#B3261E` | Errors with the lights up; `#F28B82` with the lights down                      |
+The look follows a clean product UI ([The Odin Project's sign-up page](https://www.theodinproject.com/sign_up) was the
+reference): a cool gray page, white panels with a hairline border and a soft shadow, one teal for every action. Gold is the
+cinema's own: the color of an "admit one" ticket, used only for what's yours.
+
+| Name      | Hex       | Used for                                                               |
+| --------- | --------- | ---------------------------------------------------------------------- |
+| Gray 50   | `#F9FAFB` | Page background with the lights up                                     |
+| White     | `#FFFFFF` | Panels: forms, the listings, tables, the header bar                    |
+| Gray 200  | `#E5E7EB` | Panel borders and dividers (`#D1D5DB` for control borders)             |
+| Gray 500  | `#6B7280` | Secondary text with the lights up (`#374151` body, `#111827` headings) |
+| Gray 900  | `#111827` | Headings with the lights up; the background with the lights down       |
+| Teal 700  | `#0F766E` | Primary buttons, links in focus, the current day and tab               |
+| Gold      | `#CE973E` | Selected seats, booking stubs and the Book button ("yours")            |
+| Pale gold | `#F6EAD3` | Booked tickets on My bookings                                          |
+| Red 600   | `#DC2626` | Errors with the lights up; `#F87171` with the lights down              |
+
+With the lights down the page uses the dark theme: gray 900 background, gray 800 panels, gray 300 text, gray 400 secondary
+text, teal 300 (`#5EEAD4`) for actions.
 
 Contrast, measured (WCAG AA needs 4.5:1 for text):
 
-| Pair                                   | Ratio                                                                                      |
-| -------------------------------------- | ------------------------------------------------------------------------------------------ |
-| House navy on screen silver            | 13.3                                                                                       |
-| Usher grey on screen silver            | 5.0 (velvet slate there would only be 2.6, so it's never used for text with the lights up) |
-| Screen glow on house navy              | 14.8                                                                                       |
-| Velvet slate on house navy             | 5.2                                                                                        |
-| Navy on seat rose                      | 7.8 (never white text on rose)                                                             |
-| Alarm red on silver; `#F28B82` on navy | 5.5; 6.6                                                                                   |
+| Pair                               | Ratio                                |
+| ---------------------------------- | ------------------------------------ |
+| Gray 900 on gray 50                | 17.0                                 |
+| Gray 500 on white; on gray 50      | 4.8; 4.6 (the lightest text allowed) |
+| White on teal 700                  | 5.5                                  |
+| Gray 900 on gold                   | 6.9 (never white text on gold)       |
+| Gray 900 on pale gold              | 14.9                                 |
+| Red 600 on white; `#F87171` on 900 | 4.8; 6.4                             |
+| Gray 100 seats on gray 900         | 16.1                                 |
+| Gray 400 on gray 900; on gray 800  | 7.0; 5.8                             |
+| Gray 900 on teal 300               | 12.0                                 |
 
-Free and taken seats differ by more than color (2.9:1 between glow and slate). Taken seats are outlined and carry a `✕`, so
+Free and taken seats differ by more than color (2.3:1 between gray 100 and gray 400). Taken seats are outlined and carry a `✕`, so
 color-blind users and grayscale screens still see the difference.
 
 ### Type
@@ -82,10 +94,10 @@ color-blind users and grayscale screens still see the difference.
 
   Never use it for paragraphs.
 
-- **Atkinson Hyperlegible Next** (Google Fonts). Body text, forms and the back office. It was designed for low-vision
-  readability, which helps on a phone in a dark room. It has tabular figures for prices and tables.
+- **Inter** (Google Fonts), weights 400–700. Body text, forms, navigation and the back office, as on the reference. Headings
+  in Inter are bold with tight tracking (−0.025em). It has tabular figures for prices and tables.
 
-Type scale (1.25 ratio): 13 / 16 / 20 / 25 / 31 / 39 / 49 px.
+Type scale: 14 / 16 / 20 / 25 / 31 / 39 / 49 px. Interface text (labels, buttons, nav, tables) is 14 px.
 
 - Titles: Big Shoulders at 39–49 px, weight 800, letter-spacing +0.01em, sentence or title case as the movie's name is
   written. **No all-caps labels anywhere.**
@@ -136,11 +148,12 @@ next to the one action.
 **My bookings** shows each booking as a ticket stub: movie title and time in Big Shoulders, seats, total, and a perforated edge.
 Past and cancelled bookings sit below, dimmed.
 
-**The back office** is deliberately plain: Atkinson only, dense tables, left-aligned forms. It's a tool, not a showcase.
+**The back office** is deliberately plain: Inter only, tables and stats on white panels, left-aligned forms. It's a tool, not a
+showcase.
 
 ### Motion
 
-One orchestrated moment: **the lights going down** when you open a showtime. The background fades from silver to navy
+One orchestrated moment: **the lights going down** when you open a showtime. The page fades from the light theme to the dark one
 (~600 ms) and the screen arc brightens. Then picking a seat slides its stub into the tray (~150 ms). Nothing else animates on
 its own. With `prefers-reduced-motion`, the lights change instantly and stubs appear without sliding.
 
@@ -152,8 +165,8 @@ This plan was reviewed for choices that would appear on any generated page, and 
    now dark only while picking seats, where it means something (the lights are down).
 2. **Listings.** The draft used a grid of identical poster cards with rounded corners and shadows. They're now listing rows,
    because people choose by _time_ at least as much as by poster.
-3. **Accent color.** The draft accent was a warm red. It's now seat rose, taken from real ticket rolls, and it's used for one
-   meaning only: "yours".
+3. **Accent color.** The draft accent was a warm red. It's now ticket gold, and it's used for one meaning only: "yours".
+   Actions are teal, so gold never has to mean "click here".
 
 ### Words
 
@@ -281,7 +294,7 @@ Every error has the same shape. **Branch on `code`, not on `message`:**
   normal, not an error state: someone else was faster.
 - **Only upcoming bookings can be cancelled.** Hide the button once `showtime.startsAt` has passed.
 - **Posters are just URLs** and the seed's are placeholders that don't load. Design the missing-poster state as a real thing: the
-  title set in Big Shoulders on house navy, in the poster's 2:3 frame.
+  title set in Big Shoulders on dark gray, in the poster's 2:3 frame.
 - **The free API plan sleeps** after 15 minutes idle; the first request then takes up to a minute. On app start, call
   `GET /health`. If it hasn't answered in 2 s, show "Opening the box office…" instead of a blank page.
 
@@ -321,8 +334,8 @@ refresh.
 
 ### F1: Design foundation
 
-1. **Tokens** in `src/styles/tokens.css`: the colors above, the type scale, spacing (4 px base), radii (seats are circles; stubs
-   have a 2 px radius and a perforated edge).
+1. **Tokens** in `src/styles/tokens.css`: the colors above, the type scale, spacing (4 px base), radii (seats are circles; controls
+   6 px, panels 8 px; stubs have a perforated edge).
 2. **Load the two fonts** from Google Fonts with `font-display: swap`.
 3. **Components:** `Button` (primary, quiet), `TimeButton`, `Field` (label, input, error text from `details`), `Toast`, `Stub`,
    `PosterFrame` (with the missing-poster state), `PageState` (loading, empty, error with `requestId`).

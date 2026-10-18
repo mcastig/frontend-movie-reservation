@@ -35,7 +35,7 @@ describe('SiteHeader', () => {
   it('links admins to the back office, full width when asked', () => {
     renderPage(<SiteHeader wide />, { auth: signedInAs(admin) })
     expect(screen.getByRole('link', { name: 'Back office' })).toHaveAttribute('href', '/admin')
-    expect(screen.getByRole('banner')).toHaveStyle({ maxWidth: 'none' })
+    expect(screen.getByRole('banner').firstElementChild).toHaveStyle({ maxWidth: 'none' })
   })
 })
 

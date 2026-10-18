@@ -16,14 +16,15 @@ import styles from './Styleguide.module.css'
 // Dev-only: every component in both lighting states, for keyboard and axe checks.
 
 const palette = [
-  ['Screen silver', '--screen-silver'],
-  ['House navy', '--house-navy'],
-  ['Seat rose', '--seat-rose'],
-  ['Usher grey', '--usher-grey'],
-  ['Velvet slate', '--velvet-slate'],
-  ['Screen glow', '--screen-glow'],
-  ['Alarm red', '--alarm-red'],
-  ['Alarm red, dark', '--alarm-red-dark'],
+  ['Gray 50, page', '--gray-50'],
+  ['White, panels', '--white'],
+  ['Gray 200, lines', '--gray-200'],
+  ['Gray 500, quiet text', '--gray-500'],
+  ['Gray 900, headings and lights down', '--gray-900'],
+  ['Teal 700, actions', '--teal-700'],
+  ['Ticket gold', '--gold-500'],
+  ['Pale gold, tickets', '--gold-100'],
+  ['Red 600, errors', '--red-600'],
 ]
 
 const showtime = (id: number, hour: number, seatsAvailable: number) => ({
@@ -75,7 +76,7 @@ function Panel({ lights }: { lights: 'up' | 'down' }) {
           <p className="display" style={{ fontSize: 'var(--step-4)' }}>
             The Grand Budapest Hotel
           </p>
-          <p>Body text in Atkinson Hyperlegible Next, 16 px on a 1.5 line height. 2 h 5 min, Animation, Drama.</p>
+          <p>Body text in Inter, 16 px on a 1.5 line height. 2 h 5 min, Animation, Drama.</p>
           <p className="quiet">Secondary text. $12.00 a seat, 38 left.</p>
         </div>
       </div>

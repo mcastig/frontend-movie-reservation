@@ -1,7 +1,7 @@
 .page {
   display: grid;
   gap: var(--space-6);
-  padding-top: var(--space-4);
+  padding-top: var(--space-6);
   /* Room for the tray */
   padding-bottom: 11rem;
 }
@@ -59,7 +59,8 @@
   inset: auto 0 0;
   z-index: 5;
   border-top: 1px solid var(--line-soft);
-  background: var(--house-navy);
+  background: var(--surface);
+  box-shadow: 0 -8px 24px rgb(0 0 0 / 0.35);
 }
 
 .trayInner {

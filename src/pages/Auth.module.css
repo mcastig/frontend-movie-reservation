@@ -1,25 +1,50 @@
+/* Sign in and sign up: a centered heading, then the form on a white panel */
 .wrap {
   display: grid;
-  gap: var(--space-5);
-  max-width: 26rem;
-  padding-block: var(--space-6) var(--space-8);
+  gap: var(--space-6);
+  max-width: calc(28rem + 2 * var(--gutter));
+  padding-block: var(--space-7) var(--space-8);
 }
 
-.form {
+.intro {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-2);
+  text-align: center;
 }
 
-.formError {
-  color: var(--error);
-  font-weight: 700;
-}
-
-.switch {
+.switch,
+.reason {
+  font-size: var(--step--1);
   color: var(--text-quiet);
 }
 
 .switch a {
   color: var(--text);
-  font-weight: 700;
+  font-weight: 500;
+}
+
+.switch a:hover {
+  color: var(--heading);
+  text-decoration: none;
+}
+
+.form {
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--space-6) var(--space-5);
+}
+
+.form > button {
+  width: 100%;
+}
+
+.formError {
+  font-size: var(--step--1);
+  color: var(--error);
+}
+
+@media (min-width: 40rem) {
+  .form {
+    padding: var(--space-6);
+  }
 }

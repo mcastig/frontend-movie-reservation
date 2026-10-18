@@ -37,9 +37,19 @@ export function SignInPage() {
 
   return (
     <div className={`page ${styles.wrap}`}>
-      <h1 className="page-title">Sign in</h1>
-      {state?.reason === 'book' && <p>Sign in to book your seats. They’ll still be picked when you’re back.</p>}
-      <form className={styles.form} onSubmit={onSubmit} noValidate>
+      <div className={styles.intro}>
+        <h1 className="page-title">Sign in</h1>
+        <p className={styles.switch}>
+          New here?{' '}
+          <Link to="/signup" state={state}>
+            Create an account
+          </Link>
+        </p>
+        {state?.reason === 'book' && (
+          <p className={styles.reason}>Sign in to book your seats. They’ll still be picked when you’re back.</p>
+        )}
+      </div>
+      <form className={`panel ${styles.form}`} onSubmit={onSubmit} noValidate>
         <TextField
           label="Email"
           name="email"
@@ -61,18 +71,10 @@ export function SignInPage() {
             {describeError(error)}
           </p>
         )}
-        <div>
-          <Button type="submit" disabled={pending}>
-            {pending ? 'Signing in…' : 'Sign in'}
-          </Button>
-        </div>
+        <Button type="submit" disabled={pending}>
+          {pending ? 'Signing in…' : 'Sign in'}
+        </Button>
       </form>
-      <p className={styles.switch}>
-        New here?{' '}
-        <Link to="/signup" state={state}>
-          Create an account
-        </Link>
-      </p>
     </div>
   )
 }

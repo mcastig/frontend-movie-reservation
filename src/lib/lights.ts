@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const themeColors = { up: '#E8ECEF', down: '#1A2042' }
+const themeColors = { up: '#FFFFFF', down: '#111827' }
 
 // Dims the whole page while it's mounted: the house lights going down.
 export function useLightsDown() {

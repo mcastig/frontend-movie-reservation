@@ -22,6 +22,7 @@ body {
   font-size: var(--step-0);
   line-height: 1.5;
   font-variant-numeric: tabular-nums;
+  font-feature-settings: 'cv11';
   -webkit-font-smoothing: antialiased;
   transition: inherit;
 }
@@ -57,6 +58,12 @@ textarea {
   color: inherit;
 }
 
+h1,
+h2,
+h3 {
+  color: var(--heading);
+}
+
 a {
   color: inherit;
   text-underline-offset: 0.2em;
@@ -64,13 +71,13 @@ a {
 }
 
 :focus-visible {
-  outline: 3px solid var(--focus);
+  outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
 
 ::selection {
-  background: var(--seat-rose);
-  color: var(--house-navy);
+  background: var(--gold-400);
+  color: var(--gray-900);
 }
 
 /* Big Shoulders, only for movie titles, showtimes, seat codes and totals */
@@ -103,7 +110,16 @@ a {
 .page-title {
   font-size: var(--step-3);
   font-weight: 700;
+  letter-spacing: -0.025em;
   line-height: 1.2;
+}
+
+/* A white panel on the gray page: forms, lists, tables */
+.panel {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow);
 }
 
 .quiet {
@@ -116,6 +132,7 @@ a {
   top: -100px;
   z-index: 10;
   padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius);
   background: var(--fill);
   color: var(--on-fill);
 }

@@ -8,8 +8,8 @@ export function SiteHeader({ wide }: { wide?: boolean }) {
   const location = useLocation()
 
   return (
-    <header className="page" style={wide ? { maxWidth: 'none' } : undefined}>
-      <div className={styles.header}>
+    <header className={styles.bar}>
+      <div className={`page ${styles.header}`} style={wide ? { maxWidth: 'none' } : undefined}>
         <Link to="/" className={styles.name}>
           {config.cinemaName}
         </Link>

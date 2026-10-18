@@ -1,21 +1,26 @@
-/* A booking as a ticket: seat rose, navy text, a perforated tear line with
-   notches between the main part and the stub. */
+/* A booking as a ticket: ink on pale gold, a gold stub, and a perforated tear
+   line with notches between them. */
 .ticket {
   --side: 7.5rem;
   --notch: 0.5rem;
   --cut: calc(100% - var(--side));
   display: grid;
   grid-template-columns: 1fr var(--side);
-  border-radius: var(--radius);
-  background: var(--seat-rose);
-  color: var(--house-navy);
+  border-radius: var(--radius-lg);
+  background: var(--ticket);
+  color: var(--ticket-ink);
   mask:
     radial-gradient(circle var(--notch) at var(--cut) 0, transparent 98%, #000) top / 100% 51% no-repeat,
     radial-gradient(circle var(--notch) at var(--cut) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
 }
 
 .dim {
-  background: color-mix(in srgb, var(--seat-rose) 30%, var(--screen-silver));
+  background: var(--ticket-past);
+  color: var(--ticket-past-ink);
+}
+
+.dim .side {
+  background: var(--ticket-past-side);
 }
 
 .main {
@@ -27,6 +32,7 @@
 }
 
 .title {
+  color: inherit;
   font-size: var(--step-4);
   overflow-wrap: break-word;
 }
@@ -45,11 +51,11 @@
 
 .status {
   justify-self: start;
-  padding: 0 var(--space-2);
+  padding: 0 var(--space-3);
   border: 1px solid currentColor;
-  border-radius: var(--radius);
+  border-radius: 999px;
   font-size: var(--step--1);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .side {
@@ -57,7 +63,8 @@
   align-content: space-between;
   gap: var(--space-3);
   padding: var(--space-4);
-  border-left: 2px dashed color-mix(in srgb, var(--house-navy) 45%, transparent);
+  border-left: 2px dashed color-mix(in srgb, var(--ticket-ink) 35%, transparent);
+  background: var(--stub);
 }
 
 .seats {

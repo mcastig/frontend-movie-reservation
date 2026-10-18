@@ -47,7 +47,7 @@ export function ListingsPage() {
   const genreName = genres.data?.find((g) => g.id === genreId)?.name
 
   return (
-    <div className="page">
+    <div className={`page ${styles.page}`}>
       <h1 className="visually-hidden">What’s on {dayName}</h1>
       <div className={styles.controls}>
         <DateStrip days={days} selected={date} hrefFor={hrefFor} />
@@ -75,7 +75,7 @@ export function ListingsPage() {
           <PageState kind="empty" message={`Nothing showing on ${formatDay(date)}. Try another day.`} />
         )
       ) : (
-        <ul className={styles.list}>
+        <ul className={`panel ${styles.list}`}>
           {movies.map((movie) => (
             <ListingRow key={movie.id} movie={movie} timezone={listings.data.timezone} />
           ))}

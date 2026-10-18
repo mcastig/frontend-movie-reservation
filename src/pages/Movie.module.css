@@ -1,7 +1,7 @@
 .layout {
   display: grid;
   gap: var(--space-5);
-  padding-block: var(--space-4) var(--space-7);
+  padding-block: var(--space-6) var(--space-8);
 }
 
 .poster {
@@ -19,12 +19,13 @@
 }
 
 .meta {
+  font-size: var(--step--1);
   color: var(--text-quiet);
 }
 
 .description {
-  font-size: var(--step-1);
-  line-height: 1.5;
+  font-size: 1.125rem;
+  line-height: 1.6;
 }
 
 .schedule {
@@ -33,8 +34,9 @@
 }
 
 .heading {
-  font-size: var(--step-1);
-  font-weight: 700;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .days {
@@ -47,13 +49,18 @@
   grid-template-columns: 6.5rem 1fr;
   align-items: start;
   gap: var(--space-3);
-  padding-block: var(--space-4);
+  padding: var(--space-4);
+}
+
+.day + .day {
   border-top: 1px solid var(--line-soft);
 }
 
 .dayName {
   padding-top: var(--space-2);
-  font-weight: 700;
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--heading);
 }
 
 .times {
@@ -73,5 +80,9 @@
   .poster {
     width: 100%;
     grid-row: span 2;
+  }
+
+  .day {
+    padding-inline: var(--space-5);
   }
 }

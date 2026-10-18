@@ -1,4 +1,4 @@
-/* A torn-off "admit one" stub: seat rose, navy text, a perforated left edge. */
+/* A torn-off "admit one" stub: ink on ticket gold, a perforated left edge. */
 .stub {
   --hole: 3px;
   --pitch: 9px;
@@ -8,8 +8,8 @@
   min-height: 3rem;
   padding: var(--space-2) var(--space-3) var(--space-2) calc(var(--space-3) + var(--hole));
   border-radius: var(--radius);
-  background: var(--seat-rose);
-  color: var(--house-navy);
+  background: var(--stub);
+  color: var(--ticket-ink);
   mask-image: radial-gradient(circle at 0 50%, transparent var(--hole), #000 calc(var(--hole) + 0.5px));
   mask-size: 100% var(--pitch);
   mask-repeat: repeat-y;

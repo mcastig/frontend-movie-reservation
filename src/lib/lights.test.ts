@@ -8,16 +8,16 @@ describe('useLightsDown', () => {
   })
 
   it('dims the page and the browser chrome while mounted', () => {
-    document.head.innerHTML = '<meta name="theme-color" content="#E8ECEF">'
+    document.head.innerHTML = '<meta name="theme-color" content="#FFFFFF">'
     const meta = document.querySelector('meta[name="theme-color"]')!
 
     const { unmount } = renderHook(() => useLightsDown())
     expect(document.documentElement.dataset.lights).toBe('down')
-    expect(meta.getAttribute('content')).toBe('#1A2042')
+    expect(meta.getAttribute('content')).toBe('#111827')
 
     unmount()
     expect(document.documentElement.dataset.lights).toBe('up')
-    expect(meta.getAttribute('content')).toBe('#E8ECEF')
+    expect(meta.getAttribute('content')).toBe('#FFFFFF')
   })
 
   it('works without a theme-color meta tag', () => {

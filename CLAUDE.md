@@ -60,9 +60,11 @@ The spec puts the app in `web/` of the API repo. Here it lives at this repo's ro
   - Picks travel through `?seats=` across sign-in.
   - `SeatPlan` uses a roving tabindex with arrow keys.
 - **Styling:** plain CSS modules per component, plus global `styles/base.css`, which provides `.display` (Big Shoulders, only
-  for movie titles, showtimes, seat codes and totals), `.page`, `.visually-hidden` and `.quiet`.
-- **Back office** (`pages/admin/`): plain Atkinson tables and forms. Until backend tasks B2 and B3 land, halls are discovered
-  from listings and users from admin reservations.
+  for movie titles, showtimes, seat codes and totals), `.panel` (a white card: forms, the listings, the schedule), `.page`,
+  `.visually-hidden` and `.quiet`. Everything else is Inter. The look follows The Odin Project's sign-up page: gray page,
+  white panels, teal actions, gold only for what's yours.
+- **Back office** (`pages/admin/`): plain Inter tables and forms on white panels. Until backend tasks B2 and B3 land, halls are
+  discovered from listings and users from admin reservations.
 
 ## Unit tests
 

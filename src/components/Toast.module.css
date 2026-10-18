@@ -1,6 +1,6 @@
 .region {
   position: fixed;
-  inset: var(--space-3) var(--gutter) auto;
+  inset: var(--space-4) var(--gutter) auto;
   z-index: 20;
   display: grid;
   justify-items: center;
@@ -12,33 +12,43 @@
   display: flex;
   align-items: flex-start;
   gap: var(--space-3);
-  max-width: 36rem;
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius);
-  background: var(--fill);
-  color: var(--on-fill);
+  width: min(100%, 28rem);
+  padding: var(--space-4);
+  border: 1px solid var(--line-soft);
+  border-left: 4px solid var(--fill);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--heading);
+  box-shadow: var(--shadow-raised);
+  font-size: var(--step--1);
+  font-weight: 500;
   pointer-events: auto;
 }
 
+.toast p {
+  flex: 1;
+}
+
 .error {
-  background: var(--error);
-  color: var(--bg);
+  border-left-color: var(--error);
+  color: var(--error);
 }
 
 .close {
   flex: none;
-  margin: calc(-1 * var(--space-1)) calc(-1 * var(--space-2)) 0 0;
+  margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-2)) 0 0;
   width: 2rem;
   height: 2rem;
   border: 0;
   border-radius: var(--radius);
   background: transparent;
-  color: inherit;
+  color: var(--text-quiet);
   font-size: var(--step-1);
   line-height: 1;
   cursor: pointer;
 }
 
-.close:focus-visible {
-  outline-color: currentColor;
+.close:hover {
+  background: var(--surface-sunk);
+  color: var(--heading);
 }

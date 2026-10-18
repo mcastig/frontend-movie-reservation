@@ -3,15 +3,19 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  min-height: 2.75rem;
-  padding: var(--space-2) var(--space-4);
-  border: 2px solid var(--fill);
+  min-height: 2.5rem;
+  padding: var(--space-2) var(--space-5);
+  border: 1px solid transparent;
   border-radius: var(--radius);
-  font-weight: 700;
+  font-size: var(--step--1);
+  font-weight: 600;
+  line-height: 1.25;
   text-decoration: none;
   cursor: pointer;
+  box-shadow: 0 1px 2px rgb(17 24 39 / 0.05);
   transition:
     background-color 120ms ease,
+    border-color 120ms ease,
     color 120ms ease;
 }
 
@@ -27,31 +31,33 @@
 }
 
 .primary:not(:disabled):hover {
-  background: transparent;
-  color: var(--text);
+  background: var(--fill-hover);
 }
 
 .quiet {
-  background: transparent;
+  background: var(--surface);
   color: var(--text);
   border-color: var(--line);
 }
 
 .quiet:not(:disabled):hover {
-  border-color: var(--fill);
+  background: var(--surface-sunk);
+  color: var(--heading);
 }
 
 .danger {
-  background: transparent;
-  color: var(--error);
-  border-color: var(--error);
+  background: var(--error);
+  color: var(--surface);
 }
 
-/* The one action while picking seats: navy on seat rose, never white on rose */
+.danger:not(:disabled):hover {
+  filter: brightness(0.92);
+}
+
+/* The one action while picking seats: ink on ticket gold, the total in marquee type */
 .book {
-  background: var(--seat-rose);
-  border-color: var(--seat-rose);
-  color: var(--house-navy);
+  background: var(--stub);
+  color: var(--ticket-ink);
   font-family: var(--font-display);
   font-size: var(--step-2);
   font-weight: 800;
@@ -61,12 +67,10 @@
 }
 
 .book:not(:disabled):hover {
-  background: var(--screen-glow);
-  border-color: var(--screen-glow);
+  background: var(--gold-400);
 }
 
 .small {
-  min-height: 2.25rem;
+  min-height: 2.125rem;
   padding: var(--space-1) var(--space-3);
-  font-size: var(--step--1);
 }

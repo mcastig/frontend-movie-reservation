@@ -18,7 +18,7 @@ export function PageState(props: Props) {
   }
   if (props.kind === 'empty') {
     return (
-      <div className={styles.state}>
+      <div className={`${styles.state} ${styles.empty}`}>
         <p className={styles.message}>{props.message}</p>
         {props.action}
       </div>
