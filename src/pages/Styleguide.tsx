@@ -155,6 +155,8 @@ function Panel({ lights }: { lights: 'up' | 'down' }) {
             onToggle={(seat) =>
               setSelected((s) => (s.includes(seat.id) ? s.filter((x) => x !== seat.id) : [...s, seat.id]))
             }
+            // Never at the limit here, so this never runs.
+            /* v8 ignore next */
             onLimit={() => {}}
           />
         </div>
