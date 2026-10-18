@@ -2,8 +2,12 @@
 .wrap {
   display: grid;
   gap: var(--space-6);
-  max-width: calc(28rem + 2 * var(--gutter));
   padding-block: var(--space-7) var(--space-8);
+}
+
+/* 65% of the page width. Paired with .page so it wins over base.css, which loads later. */
+:global(.page).wrap {
+  max-width: calc(0.65 * var(--page-width) + 2 * var(--gutter));
 }
 
 .intro {
