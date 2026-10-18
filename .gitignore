@@ -29,3 +29,6 @@ playwright-report
 
 # Unit test coverage
 coverage
+
+# Vercel CLI project link
+.vercel

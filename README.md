@@ -67,5 +67,16 @@ app that's already running instead. Every test runs on a phone and a desktop vie
 
 ## Deploy
 
-`render.yaml` defines a Render static site: it builds with `npm ci && npm run build`, rewrites every path to `index.html`, and
-sets a CSP that allows only the API and Google Fonts. Add the site's URL to the API's `CORS_ORIGINS` (backend task B0) first.
+Either host works; both build with `npm ci && npm run build`, serve `dist/`, send every path to `index.html` (so deep links
+like `/showtimes/5` load the app) and set a CSP that allows only the API and Google Fonts.
+
+- **Vercel:** `vercel.json`. Import the GitHub repo in Vercel (or run `npx vercel` here), keep the detected settings, and
+  deploy. Every push to `main` then deploys to production, and every pull request gets a preview URL.
+- **Render:** `render.yaml`, a static site.
+
+Before the first deploy, add the site's URL to the API's `CORS_ORIGINS` (backend task B0), or the browser blocks every API
+response. Vercel preview URLs change per deploy, so list the production domain, and add previews only if you need them to
+reach the API.
+
+`VITE_API_URL`, `VITE_CURRENCY` and `VITE_CINEMA_NAME` come from `.env.production`. Set them in the host's environment
+variables to override them; if you point at another API, add its origin to the CSP's `connect-src` in `vercel.json` too.
